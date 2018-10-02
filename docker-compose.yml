@@ -8,15 +8,21 @@ services:
     depends_on:
       - rabbitmq
       - rabbitmq-mgmt
-      - mysql
+      - mssql
+      - redis
     environment:
       LOG_LEVEL: debug
       NODE_ENV: dev
       RABBIT_MANAGEMENT: rabbitmq-mgmt
-    links:
-      - rabbitmq-mgmt:rabbitmq-mgmt
+      SQL_USERNAME: sa
+      SQL_PASSWORD: s3cr3!t123
+      SQL_HOST: mssql
+      SQL_PORT: 1433
+      ELASTICACHE_HOST: redis
+      ELASTICACHE_PORT: 6379
     ports:
-      - 6502:6502
+      - 5001:5001
+      - 5000:5000
     volumes:
       - ./:/home/app/src
 
@@ -29,18 +35,22 @@ services:
       - 5672:5672
 
   rabbitmq-mgmt:
-    image: rabbitmq:3-management
+    image: rabbitmq:3.6-management
     depends_on:
       - rabbitmq
     ports:
       - 15672:15672
 
-  mysql:
-    image: mysql:5.6
+  mssql:
+    image: microsoft/mssql-server-linux:latest
     environment:
-      MYSQL_DATABASE: pacifica
-      MYSQL_ROOT_PASSWORD: s3cr3t
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: dogfood
+      ACCEPT_EULA: Y
+      SA_PASSWORD: s3cr3!t123
+      MSSQL_PID: Express
     ports:
-      - "3306:3306"
+      - "1433:1433"
+
+  redis:
+    image: redis:2.8.6
+    ports:
+      - 6379:6379
