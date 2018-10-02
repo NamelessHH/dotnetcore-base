@@ -19,6 +19,8 @@ namespace dotnetcore_base
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseKestrel()
+                .UseUrls("http://0.0.0.0:60000", "http://0.0.0.0:60001");
     }
 }
