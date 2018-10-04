@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheHInc
+namespace thehinc.data
 {
     public class Class1
     {

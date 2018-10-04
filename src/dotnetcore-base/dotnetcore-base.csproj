@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\thehinc\thehinc.csproj" />
     <ProjectReference Include="..\thehinc.core\thehinc.core.csproj" />
+    <ProjectReference Include="..\thehinc.data\thehinc.data.csproj" />
   </ItemGroup>
 
 </Project>
